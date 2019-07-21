@@ -1,2 +1,5 @@
 sync_blog
 main
+.idea/*.xml
+.idea/*.iml
+
