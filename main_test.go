@@ -5,6 +5,8 @@ import (
 	"testing"
 	"time"
 	"app_sample/pkg/util"
+	"net/http"
+	"net/http/httptest"
 )
 
 //TestGetVersion base test case sample
@@ -71,6 +73,20 @@ func BenchmarkDecodeJson(b *testing.B) {
 	for i :=0; i < b.N; i++{
 		util.DecodeJson("pkg/util/post_temp.json")
 	}
+}
+
+//TestHandleGetVersion test handle func
+func TestHandleGetVersion(t *testing.T) {
+	sv := ServerVersion{Version:"v1", IP:"127.0.0.1", Port:8080}
+
+	mux := http.NewServeMux()
+	mux.HandleFunc("/version", sv.handGetVersion)
+
+	writer := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/version", nil)
+	mux.ServeHTTP(writer, req)
+
+	fmt.Println(writer.Body.String())
 }
 
 

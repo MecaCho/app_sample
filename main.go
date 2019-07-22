@@ -19,8 +19,8 @@ type ServerVersion struct {
 
 var ser ServerVersion
 
-func (this *ServerVersion) sayhello(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "This is new version : %s\n", this.Version)
+func (sv *ServerVersion) sayhello(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "This is new version : %s\n", sv.Version)
 	log.Printf("Get blog rep: %s, %q", ser.Version, time.Now())
 	cmd := exec.Command("sh", "-x", "/mnt/get_blog.sh")
 	//cmd.Stdin = strings.NewReader("some input")
@@ -40,6 +40,10 @@ func GetVersion() (string, error){
 
 }
 
+func (sv *ServerVersion)handGetVersion(w http.ResponseWriter, r *http.Request)  {
+	fmt.Fprintf(w, "app server version: %s.", ser.Version)
+}
+
 func init() {
 	fmt.Println("TEMP file : ", os.TempDir())
 	flag.StringVar(&ser.Version, "version", "1.0.0", "set service version.")
@@ -52,6 +56,7 @@ func init() {
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", ser.sayhello)
+	mux.HandleFunc("/version", ser.handGetVersion)
 	server := &http.Server{
 		Addr:    fmt.Sprintf("%s:%d", ser.IP, ser.Port),
 		Handler: mux,

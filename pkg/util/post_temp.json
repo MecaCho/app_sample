@@ -1,4 +1,21 @@
 {
   "name": "test_name",
-  "id": "test_id"
+  "id": "test_id",
+  "status": {
+    "availableReplicas": 1,
+    "conditions": [
+      {
+        "lastTransitionTime": "2018-11-15T13:38:21Z",
+        "lastUpdateTime": "2018-11-15T13:38:21Z",
+        "message": "Deployment has minimum availability.",
+        "reason": "MinimumReplicasAvailable",
+        "status": "True",
+        "type": "Available"
+      }
+    ],
+    "observedGeneration": 4,
+    "readyReplicas": 1,
+    "replicas": 1,
+    "updatedReplicas": 1
+  }
 }
