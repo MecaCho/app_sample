@@ -34,6 +34,12 @@ func (this *ServerVersion) sayhello(w http.ResponseWriter, r *http.Request) {
 	log.Println("Done.", time.Now())
 }
 
+func GetVersion() (string, error){
+
+	return "v1", nil
+
+}
+
 func init() {
 	fmt.Println("TEMP file : ", os.TempDir())
 	flag.StringVar(&ser.Version, "version", "1.0.0", "set service version.")
